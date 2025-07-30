@@ -1,0 +1,4 @@
+# GRUB Environment Block
+saved_entry=TunLinux
+boot_once=false
+next_entry= 

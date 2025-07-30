@@ -1,0 +1,19 @@
+title-text: "TunLinux Boot Menu"
+title-color: 0xffffff
+title-font: "DejaVu Sans 16"
+
+message-color: 0xffffff
+message-bg-color: 0x000000
+
+menu-color: 0xffffff
+menu-bg-color: 0x000000
+menu-border-color: 0xffffff
+menu-border-width: 1
+
+selected-item-color: 0x000000
+selected-item-bg-color: 0xffffff
+
+item-color: 0xffffff
+item-bg-color: 0x000000
+
+item-spacing: 1 

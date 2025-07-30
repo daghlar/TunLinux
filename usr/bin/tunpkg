@@ -1,0 +1,59 @@
+#!/bin/sh
+
+PKGDIR="packages"
+LOGFILE="/var/log/tunpkg.log"
+
+log() {
+    echo "[$(date +%Y-%m-%dT%H:%M:%S)] $1" >> "$LOGFILE"
+}
+
+depend_check() {
+    if [ -f "$PKGDIR/$1/depends" ]; then
+        for dep in $(cat "$PKGDIR/$1/depends"); do
+            if [ ! -d "/var/lib/tunpkg/$dep" ]; then
+                echo "Dependency $dep not installed. Installing..."
+                $0 install $dep
+            fi
+        done
+    fi
+}
+
+case "$1" in
+    install)
+        if [ -d "$PKGDIR/$2" ]; then
+            depend_check "$2"
+            cd "$PKGDIR/$2"
+            sh build.sh
+            sh install.sh
+            mkdir -p /var/lib/tunpkg
+            touch "/var/lib/tunpkg/$2"
+            log "Installed $2"
+            echo "Installed $2"
+        else
+            echo "Package $2 not found"
+        fi
+        ;;
+    remove)
+        if [ -d "$PKGDIR/$2" ]; then
+            cd "$PKGDIR/$2"
+            sh remove.sh
+            rm -f "/var/lib/tunpkg/$2"
+            log "Removed $2"
+            echo "Removed $2"
+        else
+            echo "Package $2 not found"
+        fi
+        ;;
+    list)
+        ls "$PKGDIR"
+        ;;
+    installed)
+        ls /var/lib/tunpkg 2>/dev/null || echo "No packages installed."
+        ;;
+    log)
+        cat "$LOGFILE"
+        ;;
+    *)
+        echo "Usage: tunpkg {install|remove|list|installed|log} <package>"
+        ;;
+esac

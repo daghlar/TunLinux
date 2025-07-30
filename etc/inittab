@@ -1,0 +1,4 @@
+::sysinit:/init/init.sh
+::respawn:/bin/getty 38400 tty1
+::ctrlaltdel:/bin/reboot
+::shutdown:/bin/umount -a -r 

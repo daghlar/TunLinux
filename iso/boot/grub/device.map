@@ -1,0 +1,5 @@
+(hd0) /dev/sda
+(hd0,1) /dev/sda1
+(hd0,2) /dev/sda2
+(hd0,3) /dev/sda3
+(hd0,4) /dev/sda4 
